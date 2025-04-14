@@ -1,6 +1,6 @@
 # ERP Feedback Auto Submitter
 
-## ⚠️ Instructions
+## Instructions
 
 **Step 1:** Open your ERP  
 **Step 2:** Note down the captcha as it will ask you when you run this code  
