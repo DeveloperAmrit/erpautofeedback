@@ -5,10 +5,6 @@ window.addEventListener('load', () => {
     let allPendingButtons = Array.from(document.querySelectorAll('p.text-danger'))
         .filter(button => button.innerText.toLowerCase().includes('pending'));
 
-    console.log("Captcha: ", capta);
-    console.log("Choice number: ", choice_num);
-    console.log("Total buttons: ", allPendingButtons.length);
-    console.log("Pending buttons: ", allPendingButtons);
 
     async function processButtons() {
         for (let i = 0; i < allPendingButtons.length; i++) {
