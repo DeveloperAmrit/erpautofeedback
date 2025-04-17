@@ -1,47 +1,47 @@
-const capta =  prompt("Enter the captcha: ");
-const choice_num = 3
+window.addEventListener('load', () => {
+    const capta = prompt("Enter the captcha: ");
+    const choice_num = 3;
 
+    let allPendingButtons = Array.from(document.querySelectorAll('p.text-danger'))
+        .filter(button => button.innerText.toLowerCase().includes('pending'));
 
-async function processButtons() {
-    await wait(2);
-    let allPendingButtons = document.querySelectorAll('p[class="text-danger"]');
-    allPendingButtons = Array.from(allPendingButtons);
-    allPendingButtons = allPendingButtons.filter((button) => {
-        return button.innerText.toLowerCase().includes('pending');
-    });
+    console.log("Captcha: ", capta);
+    console.log("Choice number: ", choice_num);
+    console.log("Total buttons: ", allPendingButtons.length);
+    console.log("Pending buttons: ", allPendingButtons);
 
-    for(let i=0;i<allPendingButtons.length;i++){
-        allPendingButtons[i].click();
-        submitForm();
-        await wait(1);
-        let closeBtn = document.querySelector('input[type="button"][value="Close"]');
-        closeBtn.click();
-        await wait(1);
-    }
-}
+    async function processButtons() {
+        for (let i = 0; i < allPendingButtons.length; i++) {
+            allPendingButtons[i].click();
+            await wait(1);
 
-function submitForm(){ 
-    let allRadios = document.querySelectorAll('input[type="radio"]');
-    let capta_input = document.querySelector('input[name="captcha"]');
-    let text_area = document.querySelector('textarea');
-    let submitBtn = document.querySelector('button[id="submit_button"]');
+            submitForm();
+            await wait(1);
 
-    for(let i=choice_num;i<allRadios.length;i+=5){
-        allRadios[i].checked = true;
+            const closeBtn = document.querySelector('input[type="button"][value="Close"]');
+            if (closeBtn) closeBtn.click();
+            await wait(1);
+        }
     }
 
-    capta_input.value = capta;
-    text_area.value = 'This course was very beautifull and I learned a lot from it. I am very happy to have taken this course.';
-    submitBtn.click();
+    function submitForm() {
+        const allRadios = document.querySelectorAll('input[type="radio"]');
+        const capta_input = document.querySelector('input[name="captcha"]');
+        const text_area = document.querySelector('textarea');
+        const submitBtn = document.querySelector('button#submit_button');
 
-}
+        for (let i = choice_num; i < allRadios.length; i += 5) {
+            allRadios[i].checked = true;
+        }
 
+        if (capta_input) capta_input.value = capta;
+        if (text_area) text_area.value = 'This course was very beautiful and I learned a lot from it. I am very happy to have taken this course.';
+        if (submitBtn) submitBtn.click();
+    }
 
+    function wait(seconds) {
+        return new Promise(resolve => setTimeout(resolve, seconds * 1000));
+    }
 
-function wait(seconds) {
-    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
-}
-  
-
-processButtons();
-
+    processButtons();
+});
