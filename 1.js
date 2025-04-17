@@ -1,15 +1,15 @@
-const capta = prompt("Enter the captcha: ");
+const capta =  prompt("Enter the captcha: ");
 const choice_num = 3
-
-let allPendingButtons = document.querySelectorAll('p[class="text-danger"]');
-allPendingButtons = Array.from(allPendingButtons);
-allPendingButtons = allPendingButtons.filter((button) => {
-    return button.innerText.includes('Pending');
-});
-
 
 
 async function processButtons() {
+    await wait(2);
+    let allPendingButtons = document.querySelectorAll('p[class="text-danger"]');
+    allPendingButtons = Array.from(allPendingButtons);
+    allPendingButtons = allPendingButtons.filter((button) => {
+        return button.innerText.toLowerCase().includes('pending');
+    });
+
     for(let i=0;i<allPendingButtons.length;i++){
         allPendingButtons[i].click();
         submitForm();
